@@ -6,7 +6,7 @@ import { generateToken,verifyToken } from "../utils/TokenGenerators.js"
 const loginUser = async (req, res) => {
     //code to login the user
 
-    const {email,password} = req.bodys
+    const {email,password} = req.body
 
     try{
         const user = await User.loginStatic(email,password)
@@ -29,6 +29,7 @@ const signUpUser = async (req, res) => {
     //code to sign up the user
 
     const {name,email,password} = req.body
+
 
     try{
 

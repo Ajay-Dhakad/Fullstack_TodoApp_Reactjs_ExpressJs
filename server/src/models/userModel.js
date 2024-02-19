@@ -71,7 +71,7 @@ if (!validator.isStrongPassword(password)){
     throw Error("Try a strong password")
 }
 
-let exists = await this.findOne({email})
+const exists = await this.findOne({email})
 
 if (exists){
 

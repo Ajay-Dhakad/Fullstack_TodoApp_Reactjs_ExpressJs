@@ -3,7 +3,7 @@ import { loginUser,signUpUser,getUser } from "../controllers/userControler.js";
 
 const route = Router()
 
-route.post('/getuser', getUser)
+route.get('/getuser', getUser)
 
 route.post('/login' ,loginUser);
 

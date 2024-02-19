@@ -16,6 +16,10 @@ app.listen(process.env.PORT || 5000, () => {
 app.use(
   cors({
     origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200,
+    preflightContinue: false,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
 

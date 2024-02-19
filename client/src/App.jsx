@@ -1,32 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react'
+import { Outlet } from "react-router-dom";
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
-async function App() {
 
-  const [user,setuser] = useState()
-  const data = await fetch('http://localhost:4000/username/name',
-  { method: "POST",
-  headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: "John Doe" }) }).then(json => {
-    return json.json()
-  })
- 
-  console.log(data.name)
 
-  const form = new FormData()
-  form.append('image','hello')
-  console.log(form)
+function App() {
 
-  return(
+  const [user,setuser] = useState(null)
+  const [token,settoken] = useState(null)
+
+
+  const getUser = async (auth_token) => {
+    // console.log(auth_token.json())
+    const userInfo = await fetch('http://localhost:3000/user/getuser',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth_token}`
+      }
+    })
+
+    const user = await userInfo.json()
+
+    if (!user.success){
+      console.log(null) //
+    }
+
+    if (user.success){
+     console.log(user.user.name)
+    }
+
+
+
+
+   }
+
+  useEffect(() => {
+
+    const auth_token =JSON.parse( localStorage.getItem('auth_token'));
+
+    if (auth_token){
+      getUser(auth_token)
+    } 
+   
+
+  },[])
+
+return(
 
 <>
 
-<h1>helllo</h1>
+<main>
+  <h1>hello {user && user}</h1>
+  <p>{token && token}</p>
+<Header/>
+<Outlet/>
+<Footer/>
+</main>
+
 </>
   
   ) 
   
 }
 
-export default App
+export default App;
