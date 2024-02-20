@@ -3,12 +3,14 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import UseLogin from '../AuthHandlers/UseLogin'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Contexts/authContext';
 
 function Login() {
 
   const [email,setemail] = useState('')
   const [password,setpassword] = useState('')
   const [error,seterror] = useState(null)
+  const {login} = useAuth()
 
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ function Login() {
     try {
          const status =  await UseLogin(email, password, seterror);
          if (status){
+          
            navigate('/');
          }
     } catch (error) {

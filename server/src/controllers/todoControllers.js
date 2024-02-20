@@ -89,7 +89,7 @@ const getTodos = async (req, res) => {
 
     const {_id} = req.user;
 
-    const todos  = await Todo.find({createdBy:_id})
+    const todos  = await Todo.find({createdBy:_id}).sort({createdAt:-1});
 
     if (!todos.length > 0){
         return res.status(400).json({ error: "No Todos Found!" })

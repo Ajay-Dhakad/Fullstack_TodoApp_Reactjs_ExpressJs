@@ -6,6 +6,11 @@ import './index.css'
 import Homepage from './Components/Homepage.jsx'
 import Signup from './Components/Signup.jsx'
 import Login from './Components/Login.jsx'
+import { AuthContextProvider } from './Contexts/authContext.jsx'
+import { useAuth } from './Contexts/authContext.jsx'
+import RouteProtector from './routeProtector/routeProtector.jsx'
+import AddTasks from './Components/addTasks.jsx'
+
 
 
 const router = createBrowserRouter([
@@ -18,11 +23,16 @@ const router = createBrowserRouter([
     element:<Homepage/>}
     ,{
       path:'/login',
-      element:<Login/>
+      element:<RouteProtector authentication={false}><Login/></RouteProtector>
     },
     {
       path:'/signup',
-      element:<Signup/>
+      element:<RouteProtector authentication={false}><Signup/></RouteProtector>
+    },{
+
+      path:'/addtasks',
+      element:<RouteProtector authentication><AddTasks/></RouteProtector>
+
     }
        
     ]
@@ -30,9 +40,7 @@ const router = createBrowserRouter([
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router}>
-    <App />
-    </RouterProvider>
-  </React.StrictMode>
+    <AuthContextProvider>
+    <RouterProvider router={router}/>
+    </AuthContextProvider>
 )
