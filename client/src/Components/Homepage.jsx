@@ -2,10 +2,18 @@ import React from 'react'
 import {motion} from 'framer-motion'
 import { useAuth } from '../Contexts/authContext'
 import {useNavigate} from 'react-router-dom'
+import { useTodo } from '../Contexts/TodoContext'
 
 function Homepage() {
   const {user} = useAuth()
   const navigate  = useNavigate()
+  const {todos,dispatch} = useTodo()
+
+
+  // dispatch({type:'fetchTodos',payload:'hello world'})
+  console.log(todos)
+
+  // console.log('hjd')
 
   const handleclick = () => {
 

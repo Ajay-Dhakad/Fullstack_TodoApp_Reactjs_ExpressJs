@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../Contexts/authContext'
-import { getTodos } from '../TodoMenthods/FetchMethods.js'
+import { getTodos,deleteTodo } from '../TodoMenthods/FetchMethods.js'
 import TodoForm from './TodoForm/TodoForm.jsx'
-
+import {useTodo} from '../Contexts/TodoContext.jsx'
  function addTasks() {
     const {user} = useAuth()
-    const [todos,settodos] = useState(null)
+    // const [todos,settodos] = useState(null)
+    const {todos,dispatch} = useTodo()
     console.log(todos)
+    console.log('hello')
    
     useEffect(() => {
      
@@ -15,7 +17,7 @@ import TodoForm from './TodoForm/TodoForm.jsx'
           try {
             const todoData = await getTodos(token);
             if (todoData){
-              settodos(todoData.todos)
+              dispatch({type:'settodo',payload:todoData.todos})
             }
             
           } catch (error) {
@@ -45,8 +47,15 @@ import TodoForm from './TodoForm/TodoForm.jsx'
     todos?.length > 0 ? 
       todos.map((todo,index) => (
         <div className="todo" key={todo._id}>
+          <div className="todocontent">
           <h3>{todo.title}</h3>
           <p>{todo.description}</p>
+          </div>
+          <div className="todoactions">
+            <button onClick={() => {deleteTodo(todo._id,user.token);dispatch({type:'deleteTodo',payload:todo._id})}}>❌</button>
+            <button>🖊️</button>
+          </div>
+
         </div>
       )) : "No tasks yet!"
   

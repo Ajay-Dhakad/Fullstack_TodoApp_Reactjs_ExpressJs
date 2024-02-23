@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { addTodo } from '../../TodoMenthods/FetchMethods.js'
+import { useTodo } from '../../Contexts/TodoContext.jsx'
 
 function TodoForm({user}) {
 
     const [title,settitle] = useState('')
     const [description,setdescription] = useState('')
     const [loader,setloader] = useState(false)
+    const {dispatch} = useTodo()
 
-    console.log(title)
+    // console.log(title)
 
     // console.log(user.token)
     
@@ -21,14 +23,22 @@ function TodoForm({user}) {
               const token = user?.token;
               const todo = { title, description };
 
-              console.log(title)
+              // console.log(title)
   
               const addTodoResponse = await addTodo(todo, token);
-              console.log(addTodoResponse.success);
+              console.log(addTodoResponse)
+
+              if (addTodoResponse.success){
+
+                settitle('');
+                setdescription('');
+                dispatch({type:'createTodo',payload:addTodoResponse.todo})
+                
+                setloader(false)q
+
+              }
   
-              settitle('');
-              setdescription('');
-              setloader(false)
+            
           } catch (error) {
             setloader(false)
               console.error('Error adding todo:', error);

@@ -9,4 +9,4 @@ route.post('/login' ,loginUser);
 
 route.post('/signup' ,signUpUser);
 
-export default route;
+export default route;   
