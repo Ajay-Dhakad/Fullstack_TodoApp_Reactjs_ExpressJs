@@ -1,4 +1,3 @@
-Certainly! Below is a simple Markdown file template for documenting your ToDo app made with HTML, CSS, JS, React, and Express.js.
 
 ```markdown
 # ToDo App Documentation
